@@ -1,0 +1,18 @@
+services:
+  agent:
+    build: .
+    image: developer-repository-agent:local
+    env_file:
+      - .env
+    environment:
+      REPO_ROOT: /app/sample_repo
+      LLM_API_KEY: ${LLM_API_KEY:-}
+      LLM_BASE_URL: ${LLM_BASE_URL:-https://api.openai.com/v1}
+      LLM_MODEL: ${LLM_MODEL:-gpt-4o-mini}
+      AGENT_ALLOW_TESTS: ${AGENT_ALLOW_TESTS:-true}
+      AGENT_READ_ONLY: ${AGENT_READ_ONLY:-false}
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./sample_repo:/app/sample_repo
+    command: ["demo"]
